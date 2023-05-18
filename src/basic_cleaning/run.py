@@ -42,9 +42,9 @@ def go(args):
     
     logger.info("Creating artifact")
     artifact = wandb.Artifact(
-        name=args.output_artifact_name,
-        type=args.output_artifact_type,
-        description=args.output_artifact_description,
+        name=args.output_artifact,
+        type=args.output_type,
+        description=args.output_description,
     )
     artifact.add_file(filename)
 

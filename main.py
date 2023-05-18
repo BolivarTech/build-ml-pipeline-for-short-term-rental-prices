@@ -57,10 +57,10 @@ def go(config: DictConfig):
                     os.path.join(hydra_root_path, "src", "basic_cleaning"), 
                     "main", 
                     parameters={
-                        "input_artifact": "nyc_airbnb/raw_data.csv:latest",
-                        "output_artifact_name": "clean_data.csv",
-                        "output_artifact_type": "clean_data",
-                        "output_artifact_description": "Clean dataset with outliers removed",
+                        "input_artifact": "nyc_airbnb/sample.csv:latest",
+                        "output_artifact": "clean_data.csv",
+                        "output_type": "clean_data",
+                        "output_description": "Clean dataset with outliers removed",
                         "min_price": config['etl']['min_price'],
                         "max_price": config['etl']['max_price']
                     },
