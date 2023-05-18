@@ -116,3 +116,4 @@ multirun/
 
 # Environments Conda
 conda_commands.txt
+build-ml-pipeline-for-short-term-rental-prices.code-workspace
