@@ -21,12 +21,15 @@ _steps = [
 
 
 # This automatically reads in the configuration
-@hydra.main(config_path=".", config_name='config')
+@hydra.main(config_path=".", config_name='config', version_base='1.1')
 def go(config: DictConfig):
 
     # Setup the wandb experiment. All runs will be grouped under this name
     os.environ["WANDB_PROJECT"] = config["main"]["project_name"]
     os.environ["WANDB_RUN_GROUP"] = config["main"]["experiment_name"]
+
+    # Get the path at the root of the MLflow project
+    hydra_root_path = hydra.utils.get_original_cwd()
 
     # Steps to execute
     steps_par = config['main']['steps']
@@ -38,11 +41,11 @@ def go(config: DictConfig):
         if "download" in active_steps:
             # Download file and load in W&B
             _ = mlflow.run(
-                f"{config['main']['components_repository']}/get_data",
+                os.path.join(hydra_root_path, "components", "get_data"),
                 "main",
-                version='main',
                 parameters={
-                    "sample": config["etl"]["sample"],
+                    "sample": os.path.join(hydra_root_path, "components",
+                                        "get_data", "data", config["etl"]["sample"]),
                     "artifact_name": "sample.csv",
                     "artifact_type": "raw_data",
                     "artifact_description": "Raw file as downloaded"
@@ -50,10 +53,19 @@ def go(config: DictConfig):
             )
 
         if "basic_cleaning" in active_steps:
-            ##################
-            # Implement here #
-            ##################
-            pass
+            _ = mlflow.run(
+                    os.path.join(hydra_root_path, "src", "basic_cleaning"), 
+                    "main", 
+                    parameters={
+                        "input_artifact": "nyc_airbnb/raw_data.csv:latest",
+                        "output_artifact_name": "clean_data.csv",
+                        "output_artifact_type": "clean_data",
+                        "output_artifact_description": "Clean dataset with outliers removed",
+                        "min_price": config['etl']['min_price'],
+                        "max_price": config['etl']['max_price']
+                    },
+            )
+
 
         if "data_check" in active_steps:
             ##################
