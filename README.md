@@ -29,7 +29,6 @@ The final goal of the pipeline is to produce the optimal inference artifact whic
 
 1. Install the [dependencies](#dependencies).
 2. Run the pipeline as explained in [the dedicated section](#how-to-run-the-pipeline).
-3. You can modify the pipeline following [these guidelines](#how-to-modify-the-pipeline) and having into account the original [`Instructions.md`](Instructions.md). 
 
 ### Dependencies
 
@@ -75,6 +74,7 @@ mlflow run https://github.com/BolivarTech/build-ml-pipeline-for-short-term-renta
 -v 1.0.2 \
 -P hydra_options="etl.sample='sample2.csv'"
 ```
+
 ## Authorship
 
 Julian Bolivar, 2023.  
