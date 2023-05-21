@@ -77,4 +77,4 @@ mlflow run https://github.com/BolivarTech/build-ml-pipeline-for-short-term-renta
 
 ## Authorship
 
-Julian Bolivar, 2023.  
+[Julian Bolivar](https://www.linkedin.com/in/jbolivarg), 2023.  
