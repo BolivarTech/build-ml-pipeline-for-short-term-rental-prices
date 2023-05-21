@@ -135,7 +135,7 @@ def go(args):
     # Upload to W&B the feture importance visualization
     run.log(
         {
-          "feature_importance": wandb.Image(fig_feat_imp),
+        "feature_importance": wandb.Image(fig_feat_imp),
         }
     )
 
